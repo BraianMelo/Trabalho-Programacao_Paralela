@@ -12,7 +12,7 @@ int main (int argc, char *argv[] ) {
 		return 1;
 	}
 	
-	int *lista = criar_lista(n);
+	Bloco *lista = criar_lista(n);
 	imprimir_lista(lista, n);
 
 	free(lista);
