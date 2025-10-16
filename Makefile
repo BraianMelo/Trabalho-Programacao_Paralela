@@ -11,9 +11,11 @@ CFLAGS = -Wall -Wextra -O2
 SRC_DIR = src
 OBJ_DIR = obj
 
-# Arquivos-fonte
+# ARQUIVOS-FONTE CORRIGIDOS: 
+# Adicionado $(SRC_DIR)/Lista.c à lista de arquivos-fonte
 SRC = $(SRC_DIR)/Programa.c \
-      $(SRC_DIR)/Utilitarios.c
+      $(SRC_DIR)/Utilitarios.c \
+      $(SRC_DIR)/Lista.c 
 
 # Gera a lista de objetos correspondente
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -42,4 +44,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re
-
