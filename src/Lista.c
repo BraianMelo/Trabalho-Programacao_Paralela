@@ -31,7 +31,7 @@ bool encontrar_primos(Bloco *lista, int n) {
 	
 	int p_max = (int) floor(sqrt(n)); 
 	
-	for(int i = 0; i < (p_max - 1); ++i) { 
+	for(int i = 0; i < (p_max); ++i) { 
 		if(lista[i].marcado)
 			continue;
 		
