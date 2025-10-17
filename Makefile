@@ -1,5 +1,5 @@
 # Nome do executável final
-EXEC = programa
+EXEC = Programa.out
 
 # Compilador
 CC = gcc
@@ -11,11 +11,10 @@ CFLAGS = -Wall -Wextra -O2
 SRC_DIR = src
 OBJ_DIR = obj
 
-# ARQUIVOS-FONTE CORRIGIDOS: 
-# Adicionado $(SRC_DIR)/Lista.c à lista de arquivos-fonte
+# ARQUIVOS-FONTE
 SRC = $(SRC_DIR)/Programa.c \
       $(SRC_DIR)/Utilitarios.c \
-      $(SRC_DIR)/Lista.c 
+      $(SRC_DIR)/Lista.c
 
 # Gera a lista de objetos correspondente
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -24,8 +23,9 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(EXEC)
 
 # Compilação e linkagem final
+# O -lm é a flag para linkar com a biblioteca matemática
 $(EXEC): $(OBJ)
-	$(CC) $(CFLAGS) -o $@ $^
+	$(CC) $(CFLAGS) -o $@ $^ -lm 
 
 # Compilação dos arquivos objeto
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
