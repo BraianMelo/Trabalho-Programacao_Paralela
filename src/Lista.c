@@ -24,9 +24,9 @@ bool encontrar_primos(Bloco *lista, int n) {
 		return false;
 	}
 	
-	int p_max = (int) floor(sqrt(n)); // Ele corresponde à raiz quadrada do valor limite, arredondado para baixo.
+	int p_max = (int) floor(sqrt(n)); 
 	
-	for(int i = 0; i < (n-1); ++i) {
+	for(int i = 0; i < (p_max - 1); ++i) { 
 		if(lista[i].marcado)
 			continue;
 		
@@ -34,15 +34,21 @@ bool encontrar_primos(Bloco *lista, int n) {
 		int contador = 2;
 		int resultado;
 		
-		do {
-			resultado = numero * contador;
-			
-			lista[resultado - 2].marcado = true;
-			
+		while(1) {
+            resultado = numero * contador;
+
+            if (resultado > n) { 
+                break;
+            }
+            
+            if (resultado - 2 < n) {
+                lista[resultado - 2].marcado = true;
+            } else {
+                break; 
+            }
+            
 			++contador;
-			
-		} while(resultado < n);
-		
+		}
 	}
 	
 	return true;
@@ -54,5 +60,6 @@ bool desalocar_lista(Bloco *lista) {
 		free(lista);
 		return true;
 	}
+	
 	return false;
 }
