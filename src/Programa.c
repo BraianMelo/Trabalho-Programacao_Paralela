@@ -13,6 +13,7 @@ int main (int argc, char *argv[] ) {
 	}
 	
 	Bloco *lista = criar_lista(n);
+	imprimir_lista(lista, n);
 	encontrar_primos(lista, n);
 	imprimir_lista(lista, n);
 
