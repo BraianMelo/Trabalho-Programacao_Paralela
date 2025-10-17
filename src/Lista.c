@@ -12,9 +12,14 @@ Bloco* criar_lista(int n) {
 }
 
 void imprimir_lista(Bloco *lista, int n) {
+	
+	int contador = 1;
+	
 	for(int i = 0; i < (n - 1); ++i) {
-		if(!lista[i].marcado)
-			printf("Lista[%d] = %d \n", i, lista[i].numero);
+		if(!lista[i].marcado){
+			printf("%d° primo: %d \n", contador, lista[i].numero);
+			++contador;
+		}
 	}
 }
 
