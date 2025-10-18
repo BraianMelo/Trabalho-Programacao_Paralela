@@ -4,6 +4,7 @@
 
 #include "Utilitarios.h"
 #include "Lista.h"
+#include "Crivo_de_Eratostenes.h"
 
 int main (int argc, char *argv[] ) {
 	

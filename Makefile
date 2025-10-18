@@ -14,7 +14,8 @@ OBJ_DIR = obj
 # ARQUIVOS-FONTE
 SRC = $(SRC_DIR)/Programa.c \
 	  $(SRC_DIR)/Utilitarios.c \
-	  $(SRC_DIR)/Lista.c
+	  $(SRC_DIR)/Lista.c \
+	  $(SRC_DIR)/Crivo_de_Eratostenes.c
 
 # Gera a lista de objetos correspondente
 OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
