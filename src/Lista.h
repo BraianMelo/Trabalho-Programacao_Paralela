@@ -1,3 +1,7 @@
+#ifndef LISTA_H
+#define LISTA_H
+
+
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -10,5 +14,7 @@ typedef struct bloco {
 
 Bloco* criar_lista(int n);
 void imprimir_lista(Bloco *lista, int n);
-bool encontrar_primos(Bloco *lista, int n);
 bool desalocar_lista(Bloco *lista);
+
+
+#endif

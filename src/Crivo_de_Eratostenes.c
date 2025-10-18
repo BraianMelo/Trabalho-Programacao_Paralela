@@ -1,0 +1,37 @@
+#include "Crivo_de_Eratostenes.h"
+
+bool encontrar_primos(Bloco *lista, int n) {
+	if(lista == NULL) {
+		printf("ERRO: Lista vazia! \n");
+		return false;
+	}
+	
+	int p_max = (int) floor(sqrt(n)); 
+	
+	for(int i = 0; i < (p_max); ++i) { 
+		if(lista[i].marcado)
+			continue;
+		
+		int numero = lista[i].numero;
+		int contador = 2;
+		int resultado;
+		
+		while(1) {
+            resultado = numero * contador;
+
+            if (resultado > n) { 
+                break;
+            }
+            
+            if (resultado - 2 < n) {
+                lista[resultado - 2].marcado = true;
+            } else {
+                break; 
+            }
+            
+			++contador;
+		}
+	}
+	
+	return true;
+}
