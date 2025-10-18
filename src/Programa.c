@@ -8,7 +8,9 @@
 
 int main (int argc, char *argv[] ) {
 	
-	int n = checar_parametros(argc, argv);
+	char modo;
+	int n = checar_parametros(argc, argv, &modo);
+	
 	if(!n) {
 		return 1;
 	}
