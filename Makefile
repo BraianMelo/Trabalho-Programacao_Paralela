@@ -1,17 +1,17 @@
 # Nome do executável final
 EXEC = Programa.out
 
-# Compilador
-CC = gcc
+# Compilador (use o compilador MPI)
+CC = mpicc
 
-# Flags de compilação. O -pg (para profiling) foi adicionado aqui.
+# Flags de compilação (mantém profiling se quiser)
 CFLAGS = -Wall -Wextra -O2 -pg
 
 # Diretórios
 SRC_DIR = src
 OBJ_DIR = obj
 
-# ARQUIVOS-FONTE
+# Arquivos-fonte
 SRC = $(SRC_DIR)/Programa.c \
 	  $(SRC_DIR)/Utilitarios.c \
 	  $(SRC_DIR)/Lista.c \
@@ -24,13 +24,10 @@ OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 all: $(EXEC)
 
 # Compilação e linkagem final
-# O -lm é a flag para linkar com a biblioteca matemática
-# O -pg é usado aqui automaticamente via CFLAGS
 $(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ -lm
 
 # Compilação dos arquivos objeto
-# O -pg é usado aqui automaticamente via CFLAGS
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -42,7 +39,7 @@ clean:
 # Limpar tudo
 fclean: clean
 	rm -f $(EXEC)
-	rm gmon.out
+	rm -f gmon.out
 
 # Recompilar do zero
 re: fclean all
