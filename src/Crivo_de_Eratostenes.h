@@ -8,5 +8,6 @@
 #include "Lista.h"
 
 bool encontrar_primos(Bloco *lista, int n);
+bool encontrar_primos_MPI(Bloco *lista, int n);
 
 #endif

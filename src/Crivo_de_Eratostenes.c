@@ -35,3 +35,37 @@ bool encontrar_primos(Bloco *lista, int n) {
 	
 	return true;
 }
+
+
+bool encontrar_primos_MPI(Bloco *lista, int n) {
+	int rank, size;
+	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+	MPI_Comm_size(MPI_COMM_WORLD, &size);
+	
+	if(lista == NULL) {
+		printf("ERRO: Lista vazia! \n");
+		return false;
+	}
+	
+	int p_max = (int) floor(sqrt(n)); 
+	int intervalo = n / size;
+	int inicio = rank * intervalo;
+	int final;
+	
+	if(rank == (size - 1)){
+		final = n;
+		
+	} else {
+		final = rank * intervalo - 1;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
