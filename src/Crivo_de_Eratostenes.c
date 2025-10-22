@@ -8,13 +8,15 @@ bool encontrar_primos(Bloco *lista, int n) {
 	
 	int p_max = (int) floor(sqrt(n)); 
 	
+	int numero, contador, resultado;
+	
 	for(int i = 0; i < (p_max); ++i) { 
 		if(lista[i].marcado)
 			continue;
 		
-		int numero = lista[i].numero;
-		int contador = 2;
-		int resultado;
+		numero = lista[i].numero;
+		contador = 2;
+		resultado;
 		
 		while(1) {
             resultado = numero * contador;
@@ -59,13 +61,5 @@ bool encontrar_primos_MPI(Bloco *lista, int n) {
 		final = rank * intervalo - 1;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+
