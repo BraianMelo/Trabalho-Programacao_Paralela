@@ -1,31 +1,63 @@
 #include "Lista.h"
 
-Bloco* criar_lista(int n) {
-	Bloco *lista = malloc(n * sizeof(Bloco));
+Lista* criar_lista(int n) {
+	Lista *lista = malloc(n * sizeof(Lista));
+	lista->n = n;
+	lista->qtd = n - 1;
+	lista->qtd_primos = lista->n;
 	
-	for(int i = 0; i < (n - 1); ++i) {
-		lista[i].numero = i + 2;
-		lista[i].marcado = false;
+	lista->elementos = malloc(lista->qtd * sizeof(Bloco));
+	
+	for(int i = 0; i < lista->qtd; ++i) {
+		lista->elementos[i].numero = i + 2;
+		lista->elementos[i].marcado = false;
 	}
 	
 	return lista;
 }
 
-void imprimir_lista(Bloco *lista, int n) {
+void imprimir_lista(Lista *lista) {
 	
 	int contador = 1;
 	
-	for(int i = 0; i < (n - 1); ++i) {
-		if(!lista[i].marcado){
-			printf("%d° primo: %d \n", contador, lista[i].numero);
+	for(int i = 0; i < (lista->qtd); ++i) {
+		if(!lista->elementos[i].marcado){
+			printf("%d° primo: %d \n", contador, lista->elementos[i].numero);
 			++contador;
 		}
 	}
 }
 
+int* retornar_lista_primos(Lista *lista) {
+    if (lista == NULL || lista->elementos == NULL || lista->qtd_primos <= 0) {
+        return NULL;
+    }
 
-bool desalocar_lista(Bloco *lista) {
+    int qtd_primos = lista->qtd_primos;
+    int *lista_primos = malloc(qtd_primos * sizeof(int));
+    
+    if (lista_primos == NULL) {
+        printf("Erro ao alocar memória para lista de primos!\n");
+        return NULL;
+    }
+
+    int contador = 0;
+    for (int i = 0; i < lista->qtd && contador < qtd_primos; ++i) {
+        if (lista->elementos[i].marcado == false) {
+            lista_primos[contador++] = lista->elementos[i].numero;
+        }
+    }
+
+    return lista_primos;
+}
+
+
+bool desalocar_lista(Lista *lista) {
 	if(lista != NULL) {
+		if(lista->elementos != NULL) {
+			free(lista->elementos);
+		}
+		
 		free(lista);
 		return true;
 	}

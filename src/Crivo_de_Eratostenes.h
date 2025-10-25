@@ -5,10 +5,11 @@
 #include <stdbool.h>
 #include <math.h>
 #include <mpi.h>
+#include <string.h>
 
 #include "Lista.h"
 
-bool encontrar_primos(Bloco *lista, int n);
-bool encontrar_primos_MPI(Bloco *lista, int n);
+bool encontrar_primos(Lista *lista);
+bool encontrar_primos_MPI(Lista *lista);
 
 #endif

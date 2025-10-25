@@ -12,9 +12,17 @@ typedef struct bloco {
 	bool marcado;
 } Bloco;
 
-Bloco* criar_lista(int n);
-void imprimir_lista(Bloco *lista, int n);
-bool desalocar_lista(Bloco *lista);
+typedef struct lista {
+	int n;
+	int qtd;
+	int qtd_primos;
+	Bloco *elementos;
+} Lista;
+
+Lista* criar_lista(int n);
+void imprimir_lista(Lista *lista);
+int* retornar_lista_primos(Lista *lista);
+bool desalocar_lista(Lista *lista);
 
 
 #endif

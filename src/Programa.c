@@ -24,22 +24,21 @@ int main (int argc, char *argv[]) {
 
     if (rank == 0) {
         printf("Modo selecionado: %c\n", modo);
-        printf("Procurando primos até %d...\n", n);
+        printf("Lista de primos até %d: \n", n);
     }
 
-    Bloco *lista = criar_lista(n);
+    Lista *lista = criar_lista(n);
 
     if (modo == 's' || modo == 'S') {
         if (rank == 0) {
-            encontrar_primos(lista, n);
-            imprimir_lista(lista, n);
+            encontrar_primos(lista);
+            imprimir_lista(lista);
             
         }
     } else if (modo == 'p' || modo == 'P') {
-        encontrar_primos_MPI(lista, n);
+        encontrar_primos_MPI(lista);
 
-        if (rank == 0)
-            imprimir_lista(lista, n);
+        
     } 
     else {
 
