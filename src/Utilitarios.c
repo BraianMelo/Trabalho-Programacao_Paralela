@@ -10,14 +10,24 @@ int checar_parametros(int argc, char* argv[], char *modo){
 	switch(argc){
 		case 1:
 			printf("Informe o N: ");
-			scanf("%d", &n);
+			
+			if (scanf("%d", &n) != 1) {
+				printf("ERRO: Entrada de N inválida ou formato incorreto.\n");
+				while (getchar() != '\n'); 
+				return 0;
+			}
 			
 			if(!checar_N(n)){
 				return 0;
 			}
 			
 			printf("Informe o modo ('s' ou 'p'): ");
-			scanf(" %c", modo); 
+			
+			if (scanf(" %c", modo) != 1) {
+				printf("ERRO: Entrada de modo inválida ou formato incorreto.\n");
+				while (getchar() != '\n'); 
+				return 0;
+			}
 			
 			if(!checar_modo(*modo)) {
 				return 0;

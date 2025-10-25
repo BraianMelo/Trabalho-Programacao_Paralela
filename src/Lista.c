@@ -1,10 +1,10 @@
 #include "Lista.h"
 
 Lista* criar_lista(int n) {
-	Lista *lista = malloc(n * sizeof(Lista));
+	Lista *lista = malloc(sizeof(Lista));
 	lista->n = n;
 	lista->qtd = n - 1;
-	lista->qtd_primos = lista->n;
+	lista->qtd_primos = lista->qtd;
 	
 	lista->elementos = malloc(lista->qtd * sizeof(Bloco));
 	

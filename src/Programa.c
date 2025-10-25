@@ -37,12 +37,15 @@ int main (int argc, char *argv[]) {
         }
     } else if (modo == 'p' || modo == 'P') {
         encontrar_primos_MPI(lista);
-
+        
+        if (rank == 0) {
+			imprimir_lista(lista);
+		}
         
     } 
     else {
 
-        free(lista);
+        desalocar_lista(lista);
         MPI_Finalize();
         return 1;
     }
