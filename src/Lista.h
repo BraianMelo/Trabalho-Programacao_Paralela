@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define BUFFER_SIZE 8192
+
 typedef struct bloco {
 	int numero;
 	bool marcado;
@@ -21,6 +23,7 @@ typedef struct lista {
 
 Lista* criar_lista(int n);
 void imprimir_lista(Lista *lista);
+void gerar_arquivo_primos(Lista *lista);
 int* retornar_lista_primos(Lista *lista);
 bool desalocar_lista(Lista *lista);
 

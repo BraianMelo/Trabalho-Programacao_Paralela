@@ -86,7 +86,6 @@ bool encontrar_primos_MPI(Lista *lista) {
         
         int start = ((primeiro_numero_bloco + numero - 1) / numero) * numero;
         
-        // Aplicar a otimização do crivo: começa em p*p
         if (start < numero * numero) {
             start = numero * numero;
         }

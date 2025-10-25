@@ -16,18 +16,6 @@ Lista* criar_lista(int n) {
 	return lista;
 }
 
-void imprimir_lista(Lista *lista) {
-	
-	int contador = 1;
-	
-	for(int i = 0; i < (lista->qtd); ++i) {
-		if(!lista->elementos[i].marcado){
-			printf("%d° primo: %d \n", contador, lista->elementos[i].numero);
-			++contador;
-		}
-	}
-}
-
 int* retornar_lista_primos(Lista *lista) {
     if (lista == NULL || lista->elementos == NULL || lista->qtd_primos <= 0) {
         return NULL;
@@ -49,6 +37,103 @@ int* retornar_lista_primos(Lista *lista) {
     }
 
     return lista_primos;
+}
+
+void imprimir_lista(Lista *lista) {
+    if (lista == NULL || lista->elementos == NULL) {
+        fprintf(stderr, "Lista inválida.\n");
+        return;
+    }
+
+    char *buffer = (char *)malloc(BUFFER_SIZE);
+    if (buffer == NULL) {
+        fprintf(stderr, "Erro ao alocar buffer de impressão. Imprimindo diretamente.\n");
+    }
+
+    int buffer_offset = 0;
+    int contador = 1;
+    int len;
+
+    for (int i = 0; i < lista->qtd; ++i) {
+        if (!lista->elementos[i].marcado) {
+            len = snprintf(buffer + buffer_offset,
+                           BUFFER_SIZE - buffer_offset,
+                           "%d° primo: %d, ", contador, lista->elementos[i].numero);
+
+            if (len < 0 || buffer_offset + len >= BUFFER_SIZE) {
+                printf("%s", buffer);
+                buffer_offset = 0;
+                len = snprintf(buffer + buffer_offset,
+                               BUFFER_SIZE - buffer_offset,
+                               "%d° primo: %d, ", contador, lista->elementos[i].numero);
+            }
+
+            buffer_offset += len;
+            ++contador;
+        }
+    }
+
+    if (buffer_offset > 0) {
+        printf("%s", buffer);
+    }
+
+    printf("\n");
+
+    free(buffer);
+}
+
+
+
+void gerar_arquivo_primos(Lista *lista) {
+    if (lista == NULL || lista->elementos == NULL) {
+        fprintf(stderr, "Lista inválida.\n");
+        return;
+    }
+
+    FILE *arquivo = fopen("primos.txt", "w");
+    if (arquivo == NULL) {
+        fprintf(stderr, "Erro ao criar arquivo de saída 'primos.txt'.\n");
+        return;
+    }
+
+    char *buffer = (char *)malloc(BUFFER_SIZE);
+    if (buffer == NULL) {
+        fprintf(stderr, "Erro ao alocar buffer de impressão.\n");
+        fclose(arquivo);
+        return;
+    }
+
+    int buffer_offset = 0;
+    int contador = 1;
+    int len;
+
+    for (int i = 0; i < lista->qtd; ++i) {
+        if (!lista->elementos[i].marcado) {
+            len = snprintf(buffer + buffer_offset,
+                           BUFFER_SIZE - buffer_offset,
+                           "%d° primo: %d, ", contador, lista->elementos[i].numero);
+
+            if (len < 0 || buffer_offset + len >= BUFFER_SIZE) {
+                fprintf(arquivo, "%s", buffer);
+                buffer_offset = 0;
+                len = snprintf(buffer + buffer_offset,
+                               BUFFER_SIZE - buffer_offset,
+                               "%d° primo: %d, ", contador, lista->elementos[i].numero);
+            }
+
+            buffer_offset += len;
+            ++contador;
+        }
+    }
+
+    if (buffer_offset > 0) {
+        fprintf(arquivo, "%s", buffer);
+    }
+    
+    fprintf(arquivo, "\n");
+
+    free(buffer);
+    fclose(arquivo);
 }
 
 
