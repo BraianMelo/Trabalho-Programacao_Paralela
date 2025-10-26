@@ -111,14 +111,14 @@ void gerar_arquivo_primos(Lista *lista) {
         if (!lista->elementos[i].marcado) {
             len = snprintf(buffer + buffer_offset,
                            BUFFER_SIZE - buffer_offset,
-                           "%d° primo: %d, ", contador, lista->elementos[i].numero);
+                           "%d° primo: %d \n", contador, lista->elementos[i].numero);
 
             if (len < 0 || buffer_offset + len >= BUFFER_SIZE) {
                 fprintf(arquivo, "%s", buffer);
                 buffer_offset = 0;
                 len = snprintf(buffer + buffer_offset,
                                BUFFER_SIZE - buffer_offset,
-                               "%d° primo: %d, ", contador, lista->elementos[i].numero);
+                               "%d° primo: %d \n", contador, lista->elementos[i].numero);
             }
 
             buffer_offset += len;
