@@ -40,7 +40,6 @@ bool encontrar_primos(Lista *lista) {
 	
 	return true;
 }
-
 bool encontrar_primos_MPI(Lista *lista) {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -53,7 +52,10 @@ bool encontrar_primos_MPI(Lista *lista) {
     int *primos_pequenos = NULL;
     MPI_Barrier(MPI_COMM_WORLD);
 
+    double tempo_inicio = 0.0, tempo_fim = 0.0;
+        
     if(rank == 0) {
+		tempo_inicio = MPI_Wtime();
         Lista *primos_pequenos_tmp = criar_lista(p_max);
         encontrar_primos(primos_pequenos_tmp);
         primos_pequenos = retornar_lista_primos(primos_pequenos_tmp);
@@ -64,7 +66,7 @@ bool encontrar_primos_MPI(Lista *lista) {
     MPI_Bcast(&qtd_primos_pequenos, 1, MPI_INT, 0, MPI_COMM_WORLD);
     
     if(rank != 0) 
-		primos_pequenos = malloc(qtd_primos_pequenos * sizeof(int));
+        primos_pequenos = malloc(qtd_primos_pequenos * sizeof(int));
 		
     MPI_Bcast(primos_pequenos, qtd_primos_pequenos, MPI_INT, 0, MPI_COMM_WORLD);
 
@@ -72,7 +74,7 @@ bool encontrar_primos_MPI(Lista *lista) {
     int inicio = rank * bloco;
     int fim = inicio + bloco;
     if(fim > lista->qtd) 
-		fim = lista->qtd;
+        fim = lista->qtd;
 
     bool *local_marcado = calloc(lista->qtd, sizeof(bool));
 
@@ -85,22 +87,18 @@ bool encontrar_primos_MPI(Lista *lista) {
         numero = primos_pequenos[i]; 
         
         int start = ((primeiro_numero_bloco + numero - 1) / numero) * numero;
-        
         if (start < numero * numero) {
             start = numero * numero;
         }
 
         contador = start / numero;
-
         resultado = 0;
         
         while(1) {
             resultado = numero * contador; 
-
             if (resultado > ultimo_numero_bloco) { 
                 break;
             }
-            
             local_marcado[resultado - 2] = true;
             ++contador;
         }
@@ -108,15 +106,18 @@ bool encontrar_primos_MPI(Lista *lista) {
 
     bool *global_marcado = NULL;
     if(rank == 0) 
-		global_marcado = calloc(lista->qtd, sizeof(bool));
-		
+        global_marcado = calloc(lista->qtd, sizeof(bool));
 	
-	MPI_Barrier(MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
     MPI_Reduce(local_marcado, global_marcado, lista->qtd, MPI_C_BOOL, MPI_LOR, 0, MPI_COMM_WORLD);
 
     if(rank == 0) {
         for(int i = 0; i < lista->qtd; ++i)
             lista->elementos[i].marcado = global_marcado[i];
+
+        tempo_fim = MPI_Wtime(); 
+        printf("Tempo total: %.6f segundos\n", tempo_fim - tempo_inicio);
+
         free(global_marcado);
     }
 
