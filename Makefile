@@ -5,7 +5,7 @@ EXEC = bin/Programa.out
 CC = mpicc
 
 # Flags de compilação
-CFLAGS = -Wall -Wextra -O2 -pg
+CFLAGS = -Wall -Wextra -O2
 
 # Diretórios
 SRC_DIR = src
@@ -34,15 +34,10 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Executa e gera relatório do gprof
+# Executa o programa
 run: $(EXEC)
-	@mkdir -p $(BUILD_DIR)
 	@echo "Executando o programa..."
 	@mpirun -np 4 ./$(EXEC) 100000 p
-	@echo "\nGerando relatório de profiling..."
-	@gprof ./$(EXEC) gmon.out > $(BUILD_DIR)/relatorio.txt
-	@mv gmon.out $(BUILD_DIR)/
-	@echo "Relatório gerado em $(BUILD_DIR)/relatorio.txt"
 
 # Limpeza
 clean:
@@ -51,9 +46,8 @@ clean:
 fclean: clean
 	rm -rf $(BIN_DIR)
 	rm -rf $(BUILD_DIR)
-	rm gmon.out
 	rm primos.txt
 
 re: fclean all
 
-.PHONY: all clean fclean re relatorio
+.PHONY: all clean fclean re run
