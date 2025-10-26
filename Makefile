@@ -51,6 +51,7 @@ clean:
 fclean: clean
 	rm -rf $(BIN_DIR)
 	rm -rf $(BUILD_DIR)
+	rm gmon.out
 	rm primos.txt
 
 re: fclean all
